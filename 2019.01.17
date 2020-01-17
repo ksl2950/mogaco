@@ -1,0 +1,182 @@
+#include <stdio.h>
+//함수 선언  (메인함수보다 위에서)
+// 메인 아래에서 함수 정의
+
+void p(int num);
+void fun(int num);
+void function_without_return();
+int function_with_return();
+void function_without_params();
+void function_with_params(int num1, int num2, int num3);
+int apple(int total, int ate);
+int add(int num1, int num2);
+int sub(int num1, int num2);
+int mul(int num1, int num2);
+int div(int num1, int num2);
+
+int main_function(void)
+{
+	//funtion
+	//계산기
+
+	int num = 2;
+	//printf("num 은 %d 입니다\n", num); //2 
+	p(num);
+
+	//2 + 3 은? 
+	num = num + 3;
+	//printf("num은 %d 입니다\n", num);
+	p(num);
+
+	//5 - 1 은?
+	num -= 1;
+	//printf("num은 %d 입니다\n", num);
+	p(num);
+
+	fun(36);
+	function_without_return();
+
+	int ret = function_with_return();
+	p(ret);
+
+	function_without_params();
+	function_with_params(1, 2, 3);
+	ret = apple(5, 2);
+	printf("사과 5개 중에 2개를 먹으면? %d 개가 남아요 \n", ret);
+	printf("\n\n");
+
+	//계산기함수
+	printf("계산기 함수\n");
+	num = 2;
+	num = add(num, 3);
+	p(num);
+
+	num = sub(num, 1);
+	p(num);
+
+	num = mul(num, 3);
+	p(num);
+
+	num = div(num, 6);
+	p(num);
+
+	return 0;
+}
+
+void p(int num) {
+
+	printf("num은 %d 입니다\n", num);
+}
+
+//함수: ㅁ + 4 
+//반환형 : ?
+
+void fun(int num)
+{
+	printf("num 은 %d 입니다\n", num + 4);
+}
+
+// 함수종류 
+//반환값이 없는 함수
+
+void function_without_return() {
+	printf("반환값이 없는 함수\n");
+}
+
+//반환값이 있는 함수
+int function_with_return() {
+	printf("반환값이 있는 함수\n");
+	return 10;
+}
+
+// 파라미터 (전달값)가 없는 함수 
+void function_without_params() {
+
+	printf("전달값이 없는 함수\n");
+}
+
+// 파라미터(전달값)가 있는 함수
+void function_with_params(int a, int b, int c) {
+	printf("전달값이 있는 함수이며 ,전달받은 값은 %d, %d,%d 입니다\n", a, b, c);
+}
+
+// 파라미터(전달값)도 받고, 반환값이 있는 함수
+int apple(int total, int ate) {
+	printf("전달값과 반환값이 있는 함수입니다.\n");
+	return total - ate;
+}
+int add(int num1, int num2) {
+	return num1 + num2;
+}
+int sub(int num1, int num2) {
+	return num1 - num2;
+}
+int mul(int num1, int num2) {
+	return num1 * num2;
+}
+int div(int num1, int num2) {
+	return num1 / num2;
+}
+
+#include <stdio.h>
+#include<time.h>
+//함수 선언
+int getRandomNumber(int level);
+void showQuestion(int level, int num1, int num2);
+void success();
+void fail();
+
+int main_function_project(void) {
+
+	// 문이 5개가 있고 각 문마다 점점 어려운 수식 퀴즈가 출제됨
+	// 맞히면 통과, 틀리면 실패
+
+	srand(time(NULL));
+	int count = 0;
+	for (int i = 1; i <= 5; i++)
+	{
+		// x*y =? 
+		int num1 = getRandomNumber(i);
+		int num2 = getRandomNumber(i);
+		//printf("%d x %d")
+		showQuestion(i, num1, num2);
+
+		int answer = -1;
+		scanf_s("%d", &answer);
+		if (answer == -1) {
+			printf("프로그램을 종료합니다 \n");
+			exit(0); // break 와 다른점은 for문을 나옴과 동시에 프로그램이 종료된다.
+		}
+		else if (answer == num1 * num2) {
+			//성공 
+			success();
+			count++;
+		}
+		else {
+			fail();
+		}
+	}
+	printf("\n\n 당신은 5개의 비밀번호 중 %d 개를 맞혔습니다 \n", count);
+
+	return 0;
+}
+
+int getRandomNumber(int level) {
+
+	return rand() % (level * 6) + 1;
+}
+
+void showQuestion(int level, int num1, int num2) {
+
+	printf("\n\n\n ###### %d 번째 비밀번호 ###### \n", level);
+	printf("\n\t %d x %d 는 ? \n\n", num1, num2);
+	printf("##############################\n");
+	printf("\n비밀번호를 입력하세요(종료 : -1) >>");
+}
+
+void success() {
+	printf("\n >> Good! ");
+}
+void fail() {
+	printf("\n >> 틀렸습니다");
+}
